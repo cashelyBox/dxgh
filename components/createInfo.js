@@ -8,7 +8,7 @@ import {frontPatientAdd} from '../ajax';
 export default class CreateInfo extends Component{
 	constructor(props) {
 	  super(props);
-	
+
 	  this.state = {
 	  	showSuccess:false,
 	  	successTimer:null,
@@ -32,9 +32,8 @@ export default class CreateInfo extends Component{
 		let birthday=null,sex=null;
 		if(postNum.length == 18){
 			birthday = [postNum.substr(6,4),postNum.substr(10,2),postNum.substr(12,2)];
-			sex = postNum.substr(16,1);
-			sex = (sex % 2 == 0 ? 0 : 1);
-			console.log(sex);
+			sex = postNum.substr(17,1);
+			sex = (sex % 2 == 0 ? 1 : 0);
 			this.setState({
 				postNum:e.target.value,
 				birthday:birthday.join('-'),
@@ -65,7 +64,7 @@ export default class CreateInfo extends Component{
 			sex:this.state.sex,
 			birthday:this.state.birthday,
 			idCard:this.state.postNum,
-			iphone:this.state.phone,
+			iphone:this.state.phoneNum,
 			address:this.state.address,
 			callBack:(res)=>{
 				this.setState({
@@ -74,12 +73,12 @@ export default class CreateInfo extends Component{
 						this.setState({
 							showSuccess:false
 						});
-						this.props.router.replace('/infoList')
+						this.props.router.goBack();
 					},2000)
 				});
 			}
 		})
-		
+
 	}
 	//根据sex的值判断用户是男是女，如果没有值的话是空
 	_outputSexName(){

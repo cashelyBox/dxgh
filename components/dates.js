@@ -27,12 +27,20 @@ export default class Dates extends Component {
 		frontDepartmentPaiban({
 			depId:this.state.kid,
 			callBack:(res) => {
+				if(!!res.datas.length){
+					this.setState({
+						datas : res.datas,
+						tDate : res.datas[this.state.index].online_date,
+						kname : res.depName
+					});
+				}else{
+					this.setState({
+						kname:'没有数据'
+					})
+				}
 				this.setState({
-					datas : res.datas,
-					tDate : res.datas[this.state.index].online_date,
-					kname : res.depName,
 					loading:false
-				});
+				})
 			}
 		});
 	}
@@ -114,11 +122,11 @@ class DateList extends Component{
 		                                    }
 		                                </p>
 		                                <p>
-		                                	<Badge preset="body">{ele.day_part == 1 ? '上午' : '下午'}</Badge>
+		                                	<Badge preset="body">{ele.day_part}</Badge>
 		                                </p>
 		                            </CellBody>
 		                            <CellFooter/>
-			                	</Cell>  
+			                	</Cell>
 	                		)
 	                	}) : null
 	                }

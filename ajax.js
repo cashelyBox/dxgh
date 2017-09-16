@@ -1,14 +1,32 @@
-const httpAddress = "http://yhbonder.cn/dx-hospital/";
+// const httpAddress = "http://www.danximz.com/";
+const httpAddress = "";
 import $ from 'jquery';
+
+export function encode(str) {
+    return encodeURI(encodeURI(str));
+}
+export function decode(str) {
+    return decodeURI(decodeURI(str));
+}
+
+export const url2obj = function(s){
+    var str = location.search.slice(1);
+    str = str.split('&');
+    var obj = {};
+    str.forEach(function(ele) {
+        var _index = ele.indexOf('=');
+        obj[ele.slice(0, _index)] = decode(ele.slice(_index + 1));
+    });
+    return obj;
+}
+
 function ajax(parmas){
 	$.ajax({
 		url:httpAddress + parmas.url,
+		method:parmas.method || 'GET',
 		data:parmas.data || {},
 		success:(res)=>{
-			console.log(res);
-
 			res = JSON.parse(res);
-
 			if(res.status == 1){
 				console.log(res,parmas.url);
 				parmas.callBack(res);
@@ -16,7 +34,7 @@ function ajax(parmas){
 				alert(res.msg);
 				return res.msg;
 			}
-		}	
+		}
 	})
 }
 //科室列表
@@ -55,6 +73,13 @@ export function frontDepartmentOnlineTimelist(parmas){
 		callBack:parmas.callBack
 	})
 }
+//获取就诊人列表
+export function frontPatientList(parmas){
+	const data = ajax({
+		url:'front/patient/list',
+		callBack:parmas.callBack
+	})
+}
 //初诊人初始建档
 export function frontPatientAdd(parmas){
 	const data = ajax({
@@ -74,6 +99,67 @@ export function frontPatientAdd(parmas){
 export function frontPatientDelete(parmas){
 	const data = ajax({
 		url:'front/patient/delete',
+		method:'POST',
+		data:{
+			name:encodeURI(encodeURI(parmas.name)),
+			idCard:parmas.idCard
+		},
 		callBack:parmas.callBack
 	})
+}
+//支付接口
+export function fontPayUnifiedorder(parmas){
+	const data = ajax({
+		url:'front/pay/unifiedorder',
+		method:'POST',
+		data:{
+			patient_id:parmas.uid,
+			dep_id:parmas.kid,
+			dep_name:parmas.kname,
+			doc_id:parmas.did,
+			doc_name:parmas.dname,
+			visit_fee:parmas.money,
+			visit_date:parmas.date,
+			visit_time:parmas.time,
+            id:parmas.id || ''
+		},
+		callBack:parmas.callBack
+	})
+}
+
+//初始化微信接口
+export function frontPayJssdk(parmas){
+	const data = ajax({
+		url:'front/pay/jssdk',
+		method:'POST',
+		data:{
+			url:encodeURI(parmas.url),
+			code:parmas.code
+		},
+		callBack:parmas.callBack
+	})
+}
+//历史纪录接口
+export function frontOrderList(parmas){
+    const data = ajax({
+        url:'front/order/list',
+        method:'POST',
+        data:{
+            page:parmas.page || 1,
+            rows:parmas.rows || 10
+        },
+        callBack:parmas.callBack
+
+    })
+}
+//根据订单获取详情
+export function frontOrderDetail(parmas){
+    const data = ajax({
+        url:'front/order/detail',
+        method:'POST',
+        data:{
+            id:parmas.id
+        },
+        callBack:parmas.callBack
+    })
 }

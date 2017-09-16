@@ -7,7 +7,7 @@ import {Link} from 'react-router';
 export default class InfoList extends Component {
 	constructor(props) {
 	  super(props);
-	
+
 	  this.state = {
 	  	infos:[
 	  		{
@@ -50,6 +50,23 @@ export default class InfoList extends Component {
 		this.setState({
 			editIndex:index
 		})
+	}
+	_loadData(){
+		this.setState({
+			loading:true
+		});
+		frontPatientList({
+			callBack:(res) => {
+				if(!!res.datas.length){
+					this.setState({
+						infos:res.datas
+					});
+				}
+				this.setState({
+					loading:false
+				})
+			}
+		});
 	}
 	render(){
 		console.log(this.state.infos.length);
@@ -96,7 +113,7 @@ class SingleInfo extends Component {
 								</CellHeader>
 								<CellBody>
 									<p>姓名：{ele.name}{ele.isDefault ? <Badge preset="body">默认</Badge> : null}</p>
-									<p>身份证：{ele.postNum}</p>
+									<p>身份证：{ele.idCard}</p>
 									<p>
 										病人ID:{ele.cardId}
 									</p>

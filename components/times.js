@@ -100,7 +100,7 @@ class DateList extends Component{
                 {
                 	this.props.times.map((ele)=>{
                 		return(
-                			<Cell key={Math.random()} access href={`#/info/${this.props.date}/${ele.hour_scope}/${this.props.dname}/${this.props.kname}/${this.props.prices}`}>
+                			<Cell key={Math.random()} access href={`#/info/${this.props.date}/${ele.hour_scope}/${this.props.dname}/${this.props.did}/${this.props.kname}/${this.props.kid}/${this.props.prices}`}>
 			                	<CellHeader>
 			                		<span style={{marginRight:'5px'}} className="ion-ios-clock-outline"></span>
 			                	</CellHeader>
