@@ -110,8 +110,9 @@ class DateList extends Component{
 			                			<span style={{marginRight:'5px',fontSize:'2em'}} className="ion-ios-person"></span>
 			                		</CellHeader>
 			                		<CellBody>
-		                                <p>{ele.doc_name}</p>
-		                                <p>{ele.unit_price}</p>
+		                                <p>{ele.doc_name}<span className="post">{ele.doc_title
+}</span><span className="money">￥{ele.unit_price}</span></p>
+										<p>特长:<span className="discription">{ele.spec}</span></p>
 		                                <p>
 		                                    {
 		                                    	typeof(ele.marks) != 'undefined' ? ele.marks.map((item)=>{
@@ -122,7 +123,15 @@ class DateList extends Component{
 		                                    }
 		                                </p>
 		                                <p>
-		                                	<Badge preset="body">{ele.day_part}</Badge>
+											{
+												ele.day_part.map((item)=>{
+													return (
+														<Badge preset="body">
+															{item}
+														</Badge>
+													)
+												})
+											}
 		                                </p>
 		                            </CellBody>
 		                            <CellFooter/>

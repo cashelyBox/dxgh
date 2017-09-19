@@ -18,6 +18,10 @@ export default class Times extends Component {
 	  	prices:'加载中...',
 	  	prices1:'加载中...',
 	  	prices2:'加载中...',
+		dept_name:'加载中...',
+		doc_title:'加载中...',
+		work_org:'加载中...',
+		spec:'加载中...',
 	  	times:[]
 	  };
 	}
@@ -42,6 +46,10 @@ export default class Times extends Component {
 					prices1 : res.planInfo.unit_price_part1,
 					prices2 : res.planInfo.unit_price_part2,
 					kname : res.planInfo.dept_name,
+					dept_name:res.planInfo.dept_name,
+					doc_title:res.planInfo.doc_title,
+					work_org:res.planInfo.work_org,
+					spec:res.planInfo.spec,
 					loading:false
 				});
 			}
@@ -76,12 +84,32 @@ export default class Times extends Component {
 	                </Cell>
 	                <Cell>
 	                	<CellBody>
-	                		其他
+	                		专业
 	                	</CellBody>
 	                	<CellFooter>
-	                		<Badge preset="body">121</Badge>
-	                		<Badge preset="body">1212</Badge>
+							{this.state.dept_name}
 	                	</CellFooter>
+	                </Cell>
+					<Cell>
+	                	<CellBody>
+	                		职称
+	                	</CellBody>
+	                	<CellFooter>
+							{this.state.doc_title}
+	                	</CellFooter>
+	                </Cell>
+					<Cell>
+	                	<CellBody>
+	                		现任单位
+	                	</CellBody>
+	                	<CellFooter>
+							{this.state.work_org}
+	                	</CellFooter>
+	                </Cell>
+					<Cell>
+	                	<CellBody>
+	                		特长:<span className="discription">{this.state.spec}</span>
+	                	</CellBody>
 	                </Cell>
 				</Cells>
 				<DateList {...this.state}/>
