@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import Page from './common/page';
 import {Cells,Cell,CellBody,CellFooter,Badge,CellsTitle,CellHeader,Panel,PanelHeader,PanelBody,MediaBox,MediaBoxHeader,MediaBoxBody,MediaBoxTitle,MediaBoxDescription} from 'react-weui';
 import {Link} from 'react-router';
-import {frontDepartmentPaiban} from '../ajax';
+import {imgPath,frontDepartmentPaiban} from '../ajax';
 export default class Dates extends Component {
 
 	constructor(props) {
@@ -107,11 +107,12 @@ class DateList extends Component{
 	                		return(
 			                	<Cell access key={Math.random()} type="appmsg" href={`#/times/${this.props.kId}/${this.props.tDate}/${ele.doc_id}`}>
 			                		<CellHeader>
-			                			<span style={{marginRight:'5px',fontSize:'2em'}} className="ion-ios-person"></span>
+										<img src={(typeof(ele.icon_img)!='undefined' && ele.icon_img.length!==0) ? imgPath+ele.icon_img : '/images/icon_user_default.jpg'} style={{marginRight:'5px',width:'80px',height:'80px'}}/>
 			                		</CellHeader>
 			                		<CellBody>
 		                                <p>{ele.doc_name}<span className="post">{ele.doc_title
 }</span><span className="money">￥{ele.unit_price}</span></p>
+										<p>现任医院:<span className="discription">{ele.work_org}</span></p>
 										<p>特长:<span className="discription">{ele.spec}</span></p>
 		                                <p>
 		                                    {
@@ -124,7 +125,7 @@ class DateList extends Component{
 		                                </p>
 		                                <p>
 											{
-												ele.day_part.map((item)=>{
+												ele.day_part.split(',').map((item)=>{
 													return (
 														<Badge preset="body">
 															{item}

@@ -1,5 +1,6 @@
 // const httpAddress = "http://www.danximz.com/";
 const httpAddress = "";
+export const imgPath = "http://www.danximz.com/images/doctor/";
 import $ from 'jquery';
 
 export function encode(str) {

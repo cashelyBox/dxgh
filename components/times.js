@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import Page from './common/page';
 import {Cells,CellsTitle,Cell,CellBody,CellFooter,Badge,CellHeader,Panel,PanelHeader,PanelBody,MediaBox,MediaBoxHeader,MediaBoxBody,MediaBoxTitle,MediaBoxDescription} from 'react-weui';
 import {Link} from 'react-router';
-import {frontDepartmentOnlineTimelist} from '../ajax';
+import {imgPath,frontDepartmentOnlineTimelist} from '../ajax';
 export default class Times extends Component {
 
 	constructor(props) {
@@ -22,6 +22,7 @@ export default class Times extends Component {
 		doc_title:'加载中...',
 		work_org:'加载中...',
 		spec:'加载中...',
+		icon_img:'/images/icon_user_default.jpg',
 	  	times:[]
 	  };
 	}
@@ -52,6 +53,11 @@ export default class Times extends Component {
 					spec:res.planInfo.spec,
 					loading:false
 				});
+				if(typeof(res.planInfo.icon_img)!='undefined' && res.planInfo.icon_img.length!=0){
+					this.setState({
+						icon_img:imgPath+res.planInfo.icon_img
+					})
+				}
 			}
 		});
 	}
@@ -66,6 +72,7 @@ export default class Times extends Component {
 			<Page loading={this.state.loading}>
 				<Cells>
 					<CellsTitle>已选信息</CellsTitle>
+					<p style={{textAlign:'center'}}><img src={this.state.icon_img} style={{marginRight:'5px',width:'80px',height:'80px'}}/></p>
 	                <Cell>
 	                	<CellBody>
 	                		医生
@@ -100,7 +107,7 @@ export default class Times extends Component {
 	                </Cell>
 					<Cell>
 	                	<CellBody>
-	                		现任单位
+	                		现任医院
 	                	</CellBody>
 	                	<CellFooter>
 							{this.state.work_org}
